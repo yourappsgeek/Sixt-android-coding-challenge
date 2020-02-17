@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+//To use libraries using Annotation processors such as Room or Data Binding
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    defaultConfig {
+        applicationId "com.sixt.codingtask"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    // dataBinding support
+    dataBinding {
+        enabled = true
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    implementation "androidx.core:core-ktx:$androidXVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
+    implementation "androidx.cardview:cardview:$cardViewVersion"
+
+    // For BottomNavigationView from Material Components
+    implementation "com.google.android.material:material:$materialVersion"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifeCycle"
+    implementation "com.google.android.gms:play-services-maps:$mapVersion"
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "android.arch.core:core-testing:$archTestingVersion"
+
+    androidTestImplementation "androidx.test:runner:$runnerVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
+    kapt "androidx.lifecycle:lifecycle-compiler:$archLifecycleVersion"
+
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit2"
+    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.gson"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp3"
+
+    // koin dependency injection library
+    implementation "org.koin:koin-android-viewmodel:$rootProject.koinVersion"
+    testImplementation "org.koin:koin-test:$rootProject.koinVersion"
+    androidTestImplementation "org.koin:koin-test:$rootProject.koinVersion"
+
+    // coil an image loading/caching library
+    implementation("io.coil-kt:coil:$rootProject.ext.coilVersion")
+
+}

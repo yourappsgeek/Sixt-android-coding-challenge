@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name" templateMergeStrategy="preserve" translatable="false">Coding Task</string>
+
+    <!-- car item negative cases placeholder text -->
+    <string name="empty_list">No cars found</string>
+    <string name="an_error_occurred">Something went wrong. please try again later!</string>
+
+    <!-- car item placeholder text -->
+    <string name="car_item_make_default_text">BMW MINI</string>
+    <string name="car_item_name_default_text">Regine</string>
+    <string name="car_item_color_default_text">Color: Hot Chocolate</string>
+    <string name="car_item_cleanliness_default_text">Cleanliness: REGULAR</string>
+
+    <!-- car item concatenation strings -->
+    <string name="car_item_make_concatenation">%1$s %2$s</string>
+    <string name="car_item_color_format">Color: %1$s</string>
+    <string name="car_item_cleanliness_format">Cleanliness: %1$s</string>
+
+    <!-- Google Map API key -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCeVtaLW6CcIrD04FNQXZrrhT0QcYiDe70</string>
+</resources>

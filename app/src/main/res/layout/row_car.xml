@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="model"
+                type="com.sixt.codingtask.data.Car" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/car_item_default_margin_08dp"
+            app:cardCornerRadius="@dimen/cardview_default_radius"
+            app:cardElevation="@dimen/cardview_default_elevation"
+            app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/cardView_background_color">
+
+            <TextView
+                    android:id="@+id/tvMaker"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/car_item_default_margin_08dp"
+                    android:text="@{@string/car_item_make_concatenation(model.make, model.series)}"
+                    android:textColor="@color/textView_color"
+                    app:fontFamily="@font/roboto_bold"
+                    app:layout_constraintBottom_toTopOf="@id/tvName"
+                    app:layout_constraintEnd_toStartOf="@id/imgCar"
+                    app:layout_constraintStart_toStartOf="@id/tvCleanliness"
+                    tools:text="@string/car_item_make_default_text" />
+
+            <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/car_item_default_margin_16dp"
+                    android:text="@{model.name}"
+                    app:fontFamily="@font/roboto_bold"
+                    app:layout_constraintBottom_toTopOf="@id/tvColor"
+                    app:layout_constraintEnd_toStartOf="@id/imgCar"
+                    app:layout_constraintStart_toStartOf="@id/tvCleanliness"
+                    tools:text="@string/car_item_name_default_text" />
+
+            <ImageView
+                    android:id="@+id/imgCar"
+                    imageUrl="@{model.carImageUrl}"
+                    placeHolder="@{@drawable/ic_car_placeholder}"
+                    android:layout_width="@dimen/car_item_image_width"
+                    android:layout_height="@dimen/car_item_image_height"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                    android:id="@+id/tvColor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/car_item_color_format(model.color)}"
+                    app:fontFamily="@font/roboto"
+                    app:layout_constraintBottom_toTopOf="@id/tvCleanliness"
+                    app:layout_constraintEnd_toStartOf="@id/imgCar"
+                    app:layout_constraintStart_toStartOf="@id/tvCleanliness"
+                    tools:text="@string/car_item_color_default_text" />
+
+            <TextView
+                    android:id="@+id/tvCleanliness"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/car_item_default_margin_08dp"
+                    android:layout_marginLeft="@dimen/car_item_default_margin_08dp"
+                    android:layout_marginBottom="@dimen/car_item_default_margin_08dp"
+                    android:text="@{@string/car_item_cleanliness_format(model.innerCleanliness)}"
+                    app:fontFamily="@font/roboto"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/imgCar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="@string/car_item_cleanliness_default_text" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- car item default dimens -->
+    <dimen name="car_item_default_margin_16dp">16dp</dimen>
+    <dimen name="car_item_image_width">200dp</dimen>
+    <dimen name="car_item_image_height">80dp</dimen>
+    <dimen name="car_item_default_margin_08dp">8dp</dimen>
+
+</resources>
