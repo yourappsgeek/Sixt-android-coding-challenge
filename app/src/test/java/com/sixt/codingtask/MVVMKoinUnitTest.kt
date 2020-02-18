@@ -67,7 +67,7 @@ class MVVMKoinUnitTest : KoinTest {
     }
 
     @Test
-    fun `empty museums list with Repository and ViewModel`() {
+    fun `empty cars list with Repository and ViewModel`() {
         with(carViewModel) {
             loadCars()
             isLoading.observeForever(isViewLoadingObserver)
@@ -83,7 +83,7 @@ class MVVMKoinUnitTest : KoinTest {
     }
 
     @Test
-    fun `museum list successful with Repository and ViewModel`() {
+    fun `cars list successful with Repository and ViewModel`() {
         with(carViewModel) {
             loadCars()
             isLoading.observeForever(isViewLoadingObserver)
@@ -98,7 +98,7 @@ class MVVMKoinUnitTest : KoinTest {
     }
 
     @Test
-    fun `museum list failure with Repository and ViewModel`() {
+    fun `cars list failure with Repository and ViewModel`() {
         with(carViewModel) {
             loadCars()
             isLoading.observeForever(isViewLoadingObserver)
