@@ -7,9 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.sixt.codingtask.R
 import com.sixt.codingtask.databinding.ActivityCarBinding
-import com.sixt.codingtask.viewmodel.CarViewModel
 import kotlinx.android.synthetic.main.activity_car.*
-import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
  * @CreatedBy Ali Ahsan
@@ -18,8 +16,6 @@ import org.koin.android.viewmodel.ext.android.viewModel
  *         Created on: 2020-02-17
  */
 class CarActivity : AppCompatActivity() {
-
-    private val viewModel: CarViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

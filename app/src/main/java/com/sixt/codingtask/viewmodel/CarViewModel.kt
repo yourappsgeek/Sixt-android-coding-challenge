@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sixt.codingtask.data.Car
-import com.sixt.codingtask.data.OperationCallback
+import com.sixt.codingtask.data.OperationResult
 import com.sixt.codingtask.model.CarDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,34 +32,31 @@ class CarViewModel(private val repository: CarDataSource) : ViewModel() {
     val isEmpty: LiveData<Boolean> = _isEmpty
 
     init {
-        viewModelScope.launch {
 
-            withContext(Dispatchers.IO)
-            {
-                loadCars()
-            }
-
-        }
+        loadCars()
     }
 
     fun loadCars() {
         _isLoading.postValue(true)
-        repository.retrieveCars(object : OperationCallback {
-            override fun onError(obj: Any?) {
-                _isLoading.postValue(false)
-                _onError.postValue(obj)
+        viewModelScope.launch {
+            val result: OperationResult<Car> = withContext(Dispatchers.IO) {
+                repository.retrieveCars()
             }
-
-            override fun onSuccess(obj: Any?) {
-                _isLoading.postValue(false)
-
-                if (obj != null && obj is List<*>) {
-                    if (obj.isEmpty()) {
+            _isLoading.postValue(false)
+            when (result) {
+                is OperationResult.Success -> {
+                    if (result.data.isNullOrEmpty()) {
                         _isEmpty.postValue(true)
-                    } else _cars.value = obj as List<Car>
+                    } else {
+                        _cars.value = result.data
+                    }
+                }
+                is OperationResult.Error -> {
+                    _onError.postValue(result.exception)
+
                 }
             }
-        })
+        }
     }
 
 }

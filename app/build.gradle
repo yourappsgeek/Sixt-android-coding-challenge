@@ -19,6 +19,10 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
     // dataBinding support
     dataBinding {
         enabled = true
@@ -67,7 +71,6 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
 
     implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
-    kapt "androidx.lifecycle:lifecycle-compiler:$archLifecycleVersion"
 
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit2"
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
@@ -78,6 +81,10 @@ dependencies {
     implementation "org.koin:koin-android-viewmodel:$rootProject.koinVersion"
     testImplementation "org.koin:koin-test:$rootProject.koinVersion"
     androidTestImplementation "org.koin:koin-test:$rootProject.koinVersion"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.coroutinesVersion"
 
     // coil an image loading/caching library
     implementation("io.coil-kt:coil:$rootProject.ext.coilVersion")
