@@ -32,14 +32,8 @@ class CarViewModel(private val repository: CarDataSource) : ViewModel() {
     val isEmpty: LiveData<Boolean> = _isEmpty
 
     init {
-        viewModelScope.launch {
-
-            withContext(Dispatchers.IO)
-            {
-                loadCars()
-            }
-
-        }
+        
+         loadCars()
     }
 
     fun loadCars() {
