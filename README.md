@@ -43,8 +43,3 @@ why I choose these?
     so you only define which URLs to hit and the types of the request/response parameters as models.
     The entire network call + JSON/XML parsing is completely handled by it (with help from Gson for JSON parsing),
     along with support for arbitrary formats with pluggable serialization / deserialization.
-
-
-Note: I couldn't comment/document the code due to the time constraint. 
-
-Looking forward to hear from you!
