@@ -35,14 +35,11 @@ why I choose these?
 
 10. Coil for loading/caching images over Picasso/Glide becasue its Kotlin-first and uses modern libraries including Coroutines, OkHttp, Okio, and AndroidX Lifecycles.
 
-11. Used Mokito and Koin for unit testing. I wrote 3 unit tests to check error, empty and list of data cases.
+11. Used Mokito and Koin for unit testing. Wrote unit tests to check error, empty and list of data cases (In [koin-di](https://github.com/yourappsgeek/Sixt-android-coding-challenge/tree/koin-di) branch).
 
-12. Retrofit is dead-simple to use. It essentially lets you treat API calls as simple method calls, 
+12. Used Coroutines-test for unit testing.Wrote unit tests to check error, empty and list of data cases (In [Coroutines-test](https://github.com/yourappsgeek/Sixt-android-coding-challenge/tree/Coroutines-test) branch).
+
+13. Retrofit is dead-simple to use. It essentially lets you treat API calls as simple method calls, 
     so you only define which URLs to hit and the types of the request/response parameters as models.
     The entire network call + JSON/XML parsing is completely handled by it (with help from Gson for JSON parsing),
     along with support for arbitrary formats with pluggable serialization / deserialization.
-
-
-Note: I couldn't comment/document the code due to time constraint. 
-
-Looking forward to hear from you!
