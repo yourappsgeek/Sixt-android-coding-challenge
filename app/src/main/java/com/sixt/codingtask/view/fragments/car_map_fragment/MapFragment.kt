@@ -26,7 +26,7 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 /**
  * @CreatedBy Ali Ahsan
- *         Synavos Solutions
+ *
  *         Author Email: info.aliuetian@gmail.com
  *         Created on: 2020-02-17
  */

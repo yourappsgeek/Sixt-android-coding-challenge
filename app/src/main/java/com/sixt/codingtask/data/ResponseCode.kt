@@ -2,7 +2,7 @@ package com.sixt.codingtask.data
 
 /**
  * @CreatedBy Ali Ahsan
- *         Synavos Solutions
+ *
  *         Author Email: info.aliuetian@gmail.com
  *         Created on: 2020-02-16
  */
@@ -12,6 +12,7 @@ enum class ResponseCode(val code: Int) {
     SUCCESS(200),
     CREATED(201),
     NOCONTENT(204),
+
     // ===== NEGATIVE ===== //
     UNKNOWN(4232),
     ERROR(400),
@@ -19,6 +20,7 @@ enum class ResponseCode(val code: Int) {
     UNAUTHORIZED(401),
     NOT_FOUND(404),
     FORGED_RESPONSE(-899),
+
     // ===== RECEIVED FROM SERVER ===== //
     GENERAL_ERROR(-1),
     SESSION_TIMEOUT(-2),

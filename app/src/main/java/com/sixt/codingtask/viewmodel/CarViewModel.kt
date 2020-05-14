@@ -3,17 +3,13 @@ package com.sixt.codingtask.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.sixt.codingtask.data.Car
 import com.sixt.codingtask.data.OperationCallback
 import com.sixt.codingtask.model.CarDataSource
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 /**
  * @CreatedBy Ali Ahsan
- *         Synavos Solutions
+ *
  *         Author Email: info.aliuetian@gmail.com
  *         Created on: 2020-02-17
  */
@@ -32,17 +28,10 @@ class CarViewModel(private val repository: CarDataSource) : ViewModel() {
     val isEmpty: LiveData<Boolean> = _isEmpty
 
     init {
-        viewModelScope.launch {
-
-            withContext(Dispatchers.IO)
-            {
-                loadCars()
-            }
-
-        }
+        loadCars()
     }
 
-    fun loadCars() {
+    private fun loadCars() {
         _isLoading.postValue(true)
         repository.retrieveCars(object : OperationCallback {
             override fun onError(obj: Any?) {
