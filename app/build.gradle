@@ -79,9 +79,8 @@ dependencies {
 
     // koin dependency injection library
     implementation "org.koin:koin-android-viewmodel:$rootProject.koinVersion"
-    testImplementation "org.koin:koin-test:$rootProject.koinVersion"
-    androidTestImplementation "org.koin:koin-test:$rootProject.koinVersion"
 
+    // Kotlin coroutines dependency
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.coroutinesVersion"

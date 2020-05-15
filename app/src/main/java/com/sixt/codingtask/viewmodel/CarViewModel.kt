@@ -36,7 +36,7 @@ class CarViewModel(private val repository: CarDataSource) : ViewModel() {
         loadCars()
     }
 
-    fun loadCars() {
+    private fun loadCars() {
         _isLoading.postValue(true)
         viewModelScope.launch {
             val result: OperationResult<Car> = withContext(Dispatchers.IO) {
