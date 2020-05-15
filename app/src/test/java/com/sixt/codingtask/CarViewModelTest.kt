@@ -20,7 +20,7 @@ import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
 
-class UnitTestsUsingCoroutines {
+class CarViewModelTest {
 
     @Mock
     private lateinit var context: Application

@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/bottom_nav_graph"
-        app:startDestination="@id/carListFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/carListFragment">
 
     <fragment
-            android:id="@+id/carListFragment"
-            android:name="com.sixt.codingtask.view.fragments.car_list_fragment.CarListFragment"
-            android:label="Available Cars"
-            tools:layout="@layout/cars_list_fragment" />
+        android:id="@+id/carListFragment"
+        android:name="com.sixt.codingtask.view.fragments.car_list_fragment.CarListFragment"
+        android:label="Available Cars"
+        tools:layout="@layout/cars_list_fragment" />
     <fragment
-            android:id="@+id/mapFragment"
-            android:name="com.sixt.codingtask.view.fragments.car_map_fragment.MapFragment"
-            android:label="Map View"
-            tools:layout="@layout/fragment_map" />
+        android:id="@+id/mapFragment"
+        android:name="com.sixt.codingtask.view.fragments.car_map_fragment.MapFragment"
+        android:label="Map View"
+        tools:layout="@layout/fragment_map" />
 </navigation>

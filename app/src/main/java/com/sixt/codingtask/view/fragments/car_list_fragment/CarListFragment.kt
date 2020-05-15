@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sixt.codingtask.R
@@ -14,17 +15,16 @@ import com.sixt.codingtask.databinding.FragmentListBinding
 import com.sixt.codingtask.viewmodel.CarViewModel
 import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.layout_error.*
-import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 /**
  * @CreatedBy Ali Ahsan
- *         Synavos Solutions
+ *
  *         Author Email: info.aliuetian@gmail.com
  *         Created on: 2020-02-17
  */
 class CarListFragment : Fragment() {
 
-    private val viewModel: CarViewModel by sharedViewModel()
+    private val viewModel: CarViewModel by activityViewModels()
     private lateinit var carAdapter: CarAdapter
 
     override fun onCreateView(
@@ -40,10 +40,12 @@ class CarListFragment : Fragment() {
             container, false
         )
 
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this
+        return binding.run {
 
-        return binding.root
+            viewModel = viewModel
+            lifecycleOwner = viewLifecycleOwner
+            root
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -56,8 +58,10 @@ class CarListFragment : Fragment() {
     // initialize the recycleView with empty list
     private fun setupUI() {
 
-        carAdapter = CarAdapter()
-        carAdapter.update(viewModel.cars.value ?: emptyList())
+        carAdapter = CarAdapter().apply {
+
+            update(viewModel.cars.value ?: emptyList())
+        }
 
         with(recyclerView)
         {
@@ -70,18 +74,18 @@ class CarListFragment : Fragment() {
 
         with(viewModel)
         {
-            cars.observe(viewLifecycleOwner, renderMuseums)
-            onError.observe(viewLifecycleOwner, onMessageErrorObserver)
+            cars.observe(viewLifecycleOwner, renderCarsObserver)
+            onError.observe(viewLifecycleOwner, errorObserver)
         }
     }
 
     //observers
-    private val renderMuseums = Observer<List<Car>> {
+    private val renderCarsObserver = Observer<List<Car>> {
 
         carAdapter.update(it)
     }
 
-    private val onMessageErrorObserver = Observer<Any> {
+    private val errorObserver = Observer<Any> {
 
         layoutError.visibility = View.VISIBLE
 

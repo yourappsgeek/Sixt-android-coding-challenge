@@ -7,15 +7,19 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.sixt.codingtask.R
 import com.sixt.codingtask.databinding.ActivityCarBinding
+import com.sixt.codingtask.viewmodel.CarViewModel
 import kotlinx.android.synthetic.main.activity_car.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
  * @CreatedBy Ali Ahsan
- *         Synavos Solutions
+ *
  *         Author Email: info.aliuetian@gmail.com
  *         Created on: 2020-02-17
  */
 class CarActivity : AppCompatActivity() {
+
+    private val model by viewModel<CarViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +31,8 @@ class CarActivity : AppCompatActivity() {
             this,
             R.layout.activity_car
         ) as ActivityCarBinding
+
+        model.loadCars()
 
         // Finding the Navigation Controller
         val navController = findNavController(R.id.navHost)

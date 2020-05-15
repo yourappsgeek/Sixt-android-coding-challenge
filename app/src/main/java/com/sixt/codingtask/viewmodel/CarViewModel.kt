@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 
 /**
  * @CreatedBy Ali Ahsan
- *         Synavos Solutions
+ *
  *         Author Email: info.aliuetian@gmail.com
  *         Created on: 2020-02-17
  */
@@ -31,28 +31,23 @@ class CarViewModel(private val repository: CarDataSource) : ViewModel() {
     private val _isEmpty = MutableLiveData<Boolean>()
     val isEmpty: LiveData<Boolean> = _isEmpty
 
-    init {
-
-        loadCars()
-    }
-
-    private fun loadCars() {
-        _isLoading.postValue(true)
+    fun loadCars() {
+        _isLoading.value = true
         viewModelScope.launch {
             val result: OperationResult<Car> = withContext(Dispatchers.IO) {
                 repository.retrieveCars()
             }
-            _isLoading.postValue(false)
+            _isLoading.value = false
             when (result) {
                 is OperationResult.Success -> {
                     if (result.data.isNullOrEmpty()) {
-                        _isEmpty.postValue(true)
+                        _isEmpty.value = true
                     } else {
                         _cars.value = result.data
                     }
                 }
                 is OperationResult.Error -> {
-                    _onError.postValue(result.exception)
+                    _onError.value = result.exception
 
                 }
             }

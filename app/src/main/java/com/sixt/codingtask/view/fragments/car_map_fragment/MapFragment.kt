@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -21,18 +22,17 @@ import com.sixt.codingtask.databinding.FragmentMapBinding
 import com.sixt.codingtask.viewmodel.CarViewModel
 import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.layout_error.*
-import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
 /**
  * @CreatedBy Ali Ahsan
- *         Synavos Solutions
+ *
  *         Author Email: info.aliuetian@gmail.com
  *         Created on: 2020-02-17
  */
 class MapFragment : Fragment(), OnMapReadyCallback {
 
-    private val viewModel: CarViewModel by sharedViewModel()
+    private val viewModel: CarViewModel by activityViewModels()
     private val options = MarkerOptions()
     private lateinit var mMap: GoogleMap
 
@@ -64,13 +64,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         with(viewModel)
         {
-            cars.observe(viewLifecycleOwner, renderMuseums)
+            cars.observe(viewLifecycleOwner, renderCarsObserver)
             onError.observe(viewLifecycleOwner, onMessageErrorObserver)
         }
     }
 
     //observers
-    private val renderMuseums = Observer<List<Car>> {
+    private val renderCarsObserver = Observer<List<Car>> {
 
         updateMap(it)
     }
