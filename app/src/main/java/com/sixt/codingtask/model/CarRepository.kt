@@ -4,7 +4,6 @@ import android.util.Log
 import com.sixt.codingtask.data.ApiClient
 import com.sixt.codingtask.data.Car
 import com.sixt.codingtask.data.OperationResult
-import com.sixt.codingtask.data.ResponseCode
 
 /**
  * @CreatedBy Ali Ahsan
@@ -23,7 +22,7 @@ class CarRepository : CarDataSource {
             val response = ApiClient.build()?.cars()
 
             response?.let {
-                return if (it.isSuccessful && it.body() != null && (it.code() == ResponseCode.SUCCESS.code)) {
+                return if (it.isSuccessful && it.body() != null) {
 
                     Log.v(TAG, "data $it")
                     OperationResult.Success(it.body())

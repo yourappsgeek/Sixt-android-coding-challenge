@@ -1,7 +1,5 @@
 package com.sixt.codingtask.data
 
-import java.io.Serializable
-
 /**
  * @CreatedBy Ali Ahsan
  *
@@ -19,4 +17,4 @@ data class Car(
     val longitude: Double,
     val innerCleanliness: String,
     val carImageUrl: String
-) : Serializable
+)
