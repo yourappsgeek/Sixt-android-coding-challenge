@@ -81,16 +81,21 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             val builder = LatLngBounds.Builder()
 
             for (car in cars) {
+
                 val point = LatLng(car.latitude, car.longitude)
-                options.position(point)
-                options.title(car.name)
-                options.snippet(
-                    getString(
-                        R.string.car_item_make_concatenation,
-                        car.make,
-                        car.series
+
+                with(options)
+                {
+                    position(point)
+                    title(car.name)
+                    snippet(getString(
+                            R.string.car_item_make_concatenation,
+                            car.make,
+                            car.series
+                        )
                     )
-                )
+                }
+
                 mMap.addMarker(options)
                 builder.include(point)
             }

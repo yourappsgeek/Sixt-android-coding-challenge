@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.layout_error.*
  */
 class CarListFragment : Fragment() {
 
-    private val viewModel: CarViewModel by activityViewModels()
+    private val carViewModel: CarViewModel by activityViewModels()
     private lateinit var carAdapter: CarAdapter
 
     override fun onCreateView(
@@ -42,7 +42,7 @@ class CarListFragment : Fragment() {
 
         return binding.run {
 
-            viewModel = viewModel
+            viewModel = carViewModel
             lifecycleOwner = viewLifecycleOwner
             root
         }
@@ -60,7 +60,7 @@ class CarListFragment : Fragment() {
 
         carAdapter = CarAdapter().apply {
 
-            update(viewModel.cars.value ?: emptyList())
+            update(carViewModel.cars.value ?: emptyList())
         }
 
         with(recyclerView)
@@ -72,7 +72,7 @@ class CarListFragment : Fragment() {
 
     private fun setupViewModel() {
 
-        with(viewModel)
+        with(carViewModel)
         {
             cars.observe(viewLifecycleOwner, renderCarsObserver)
             onError.observe(viewLifecycleOwner, errorObserver)

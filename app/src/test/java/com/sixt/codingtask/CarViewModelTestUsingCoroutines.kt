@@ -2,16 +2,16 @@ package com.sixt.codingtask
 
 import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
 import com.sixt.codingtask.data.Car
 import com.sixt.codingtask.data.OperationResult
 import com.sixt.codingtask.model.CarDataSource
 import com.sixt.codingtask.viewmodel.CarViewModel
+import junit.framework.TestCase.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
 import org.junit.*
 import org.mockito.BDDMockito.`when`
@@ -20,7 +20,7 @@ import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
 
-class CarViewModelTest {
+class CarViewModelTestUsingCoroutines {
 
     @Mock
     private lateinit var context: Application
@@ -28,23 +28,16 @@ class CarViewModelTest {
     private lateinit var carViewModel: CarViewModel
 
     @Mock
-    private lateinit var isViewLoadingObserver: Observer<Boolean>
-
-    @Mock
-    private lateinit var emptyListObserver: Observer<Boolean>
-
-    @Mock
-    private lateinit var carsObserver: Observer<List<Car>>
-
-    @Mock
     private lateinit var repository: CarDataSource
     private lateinit var carList: List<Car>
+
 
     @ExperimentalCoroutinesApi
     private val testDispatcher = TestCoroutineDispatcher()
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
+
 
     @ExperimentalCoroutinesApi
     @Before
@@ -54,18 +47,14 @@ class CarViewModelTest {
 
         `when`(context.applicationContext).thenReturn(context)
 
-        carViewModel = CarViewModel(repository).apply {
-
-            isLoading.observeForever(isViewLoadingObserver)
-            isEmpty.observeForever(emptyListObserver)
-            cars.observeForever(carsObserver)
-        }
-
         Dispatchers.setMain(testDispatcher)
 
         mockData()
 
+        carViewModel = CarViewModel(repository)
+
     }
+
 
     @ExperimentalCoroutinesApi
     @After
@@ -75,11 +64,12 @@ class CarViewModelTest {
     }
 
 
+    @ExperimentalCoroutinesApi
     @Test
     fun `retrieve cars with ViewModel and Repository returns empty data`() {
 
 
-        runBlocking {
+        runBlockingTest {
 
             `when`(repository.retrieveCars()).thenReturn(OperationResult.Success(emptyList()))
 
@@ -89,34 +79,37 @@ class CarViewModelTest {
 
         }
 
-        Assert.assertNotNull(carViewModel.isLoading.value)
-        Assert.assertTrue(carViewModel.isEmpty.value == true)
-        Assert.assertTrue(carViewModel.cars.value?.size == 0)
+        assertNotNull(carViewModel.isLoading.getOrAwaitValue())
+        assertNotNull(carViewModel.isEmpty.getOrAwaitValue())
+        assertTrue(carViewModel.cars.getOrAwaitValue().isEmpty())
 
     }
 
 
+    @ExperimentalCoroutinesApi
     @Test
     fun `retrieve cars with ViewModel and Repository returns full data`() {
 
-        runBlocking {
+        runBlockingTest {
 
             `when`(repository.retrieveCars()).thenReturn(OperationResult.Success(carList))
 
             carViewModel.loadCars()
 
             verify(repository).retrieveCars()
+
         }
 
-        Assert.assertNotNull(carViewModel.isLoading.value)
-        Assert.assertTrue(carViewModel.cars.value?.size == 3)
+        assertNotNull(carViewModel.isLoading.getOrAwaitValue())
+        assertEquals(3,carViewModel.cars.getOrAwaitValue().size)
     }
 
 
+    @ExperimentalCoroutinesApi
     @Test
     fun `retrieve cars with ViewModel and Repository returns an error`() {
 
-        runBlocking {
+        runBlockingTest {
 
             `when`(repository.retrieveCars()).thenReturn(
                 OperationResult.Error(
@@ -129,8 +122,8 @@ class CarViewModelTest {
             verify(repository).retrieveCars()
         }
 
-        Assert.assertNotNull(carViewModel.isLoading.value)
-        Assert.assertNotNull(carViewModel.onError.value)
+        assertNotNull(carViewModel.isLoading.getOrAwaitValue())
+        assertNotNull(carViewModel.onError.getOrAwaitValue())
     }
 
     private fun mockData() {
