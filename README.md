@@ -5,7 +5,7 @@ Libraries/Components I used:
 1. Android [Jetpack](https://developer.android.com/jetpack) Architecture, UI and Foundation components.
 2. [Koin](https://insert-koin.io) library for DI (dependency injection).
 3. [Coil](https://github.com/coil-kt/coil) library to load/cache the images.
-4. [Mokito](https://site.mockito.org) and [Koin](https://insert-koin.io) for Unit testing.
+4. [Mokito](https://site.mockito.org) and [Coroutines](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-test/) for Unit testing.
 5. [Retrofit](https://square.github.io/retrofit/) for API calls with [GSON](https://github.com/google/gson) for data parsing.
 
 why I choose these?
@@ -35,7 +35,7 @@ why I choose these?
 
 10. Coil for loading/caching images over Picasso/Glide becasue its Kotlin-first and uses modern libraries including Coroutines, OkHttp, Okio, and AndroidX Lifecycles.
 
-11. Used Mokito and Koin for unit testing. Wrote unit tests to check error, empty and list of data cases (In CarViewModelTest.kt [Koin-test](https://github.com/yourappsgeek/Sixt-android-coding-challenge/blob/master/app/src/test/java/com/sixt/codingtask/CarViewModelTest.kt)).
+11. Used Mokito and Koin for unit testing. Wrote unit tests to check error, empty and list of data cases [In CarViewModelTest.kt](https://github.com/yourappsgeek/Sixt-android-coding-challenge/blob/master/app/src/test/java/com/sixt/codingtask/CarViewModelTest.kt).
 
 12. Retrofit is dead-simple to use. It essentially lets you treat API calls as simple method calls, 
     so you only define which URLs to hit and the types of the request/response parameters as models.
