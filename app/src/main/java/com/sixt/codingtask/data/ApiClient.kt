@@ -2,7 +2,7 @@ package com.sixt.codingtask.data
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -44,6 +44,6 @@ object ApiClient {
 
     interface ServicesApiInterface {
         @GET("/codingtask/cars")
-        fun cars(): Call<List<Car>>
+        suspend fun cars(): Response<List<Car>>
     }
 }

@@ -1,6 +1,7 @@
 package com.sixt.codingtask.model
 
-import com.sixt.codingtask.data.OperationCallback
+import com.sixt.codingtask.data.Car
+import com.sixt.codingtask.data.OperationResult
 
 /**
  * @CreatedBy Ali Ahsan
@@ -10,6 +11,5 @@ import com.sixt.codingtask.data.OperationCallback
  */
 interface CarDataSource {
 
-    fun retrieveCars(callback: OperationCallback)
-    fun cancel()
+    suspend fun retrieveCars(): OperationResult<Car>
 }

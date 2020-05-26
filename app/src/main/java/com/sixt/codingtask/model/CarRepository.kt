@@ -3,11 +3,7 @@ package com.sixt.codingtask.model
 import android.util.Log
 import com.sixt.codingtask.data.ApiClient
 import com.sixt.codingtask.data.Car
-import com.sixt.codingtask.data.OperationCallback
-import com.sixt.codingtask.data.ResponseCode
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.sixt.codingtask.data.OperationResult
 
 /**
  * @CreatedBy Ali Ahsan
@@ -20,29 +16,24 @@ const val TAG = "CONSOLE"
 
 class CarRepository : CarDataSource {
 
-    private var call: Call<List<Car>>? = null
+    override suspend fun retrieveCars(): OperationResult<Car> {
 
-    override fun retrieveCars(callback: OperationCallback) {
-        call = ApiClient.build()?.cars()
-        call?.enqueue(object : Callback<List<Car>> {
-            override fun onFailure(call: Call<List<Car>>, t: Throwable) {
-                callback.onError(t.message)
-            }
+        try {
+            val response = ApiClient.build()?.cars()
 
-            override fun onResponse(call: Call<List<Car>>, response: Response<List<Car>>) {
-                response.let {
-                    if (response.isSuccessful && (response.code() == ResponseCode.SUCCESS.code)) {
-                        Log.v(TAG, "data $it")
-                        callback.onSuccess(it.body())
-                    } else {
-                        callback.onError(response.message())
-                    }
+            response?.let {
+                return if (it.isSuccessful && it.body() != null) {
+
+                    Log.v(TAG, "data $it")
+                    OperationResult.Success(it.body())
+                } else {
+                    OperationResult.Error(Exception(it.message()))
                 }
+            } ?: run {
+                return OperationResult.Error(Exception("Something went wrong. please try again later!"))
             }
-        })
-    }
-
-    override fun cancel() {
-        call?.cancel()
+        } catch (e: Exception) {
+            return OperationResult.Error(e)
+        }
     }
 }

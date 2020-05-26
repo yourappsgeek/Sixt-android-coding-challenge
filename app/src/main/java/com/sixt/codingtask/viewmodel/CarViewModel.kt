@@ -3,9 +3,13 @@ package com.sixt.codingtask.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.sixt.codingtask.data.Car
-import com.sixt.codingtask.data.OperationCallback
+import com.sixt.codingtask.data.OperationResult
 import com.sixt.codingtask.model.CarDataSource
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * @CreatedBy Ali Ahsan
@@ -27,28 +31,27 @@ class CarViewModel(private val repository: CarDataSource) : ViewModel() {
     private val _isEmpty = MutableLiveData<Boolean>()
     val isEmpty: LiveData<Boolean> = _isEmpty
 
-    init {
-        loadCars()
-    }
-
-    private fun loadCars() {
-        _isLoading.postValue(true)
-        repository.retrieveCars(object : OperationCallback {
-            override fun onError(obj: Any?) {
-                _isLoading.postValue(false)
-                _onError.postValue(obj)
+    fun loadCars() {
+        _isLoading.value = true
+        viewModelScope.launch {
+            val result: OperationResult<Car> = withContext(Dispatchers.IO) {
+                repository.retrieveCars()
             }
+            _isLoading.value = false
+            when (result) {
+                is OperationResult.Success -> {
+                    if (result.data.isNullOrEmpty()) {
+                        _isEmpty.value = true
+                    } else {
+                        _cars.value = result.data
+                    }
+                }
+                is OperationResult.Error -> {
+                    _onError.value = result.exception
 
-            override fun onSuccess(obj: Any?) {
-                _isLoading.postValue(false)
-
-                if (obj != null && obj is List<*>) {
-                    if (obj.isEmpty()) {
-                        _isEmpty.postValue(true)
-                    } else _cars.value = obj as List<Car>
                 }
             }
-        })
+        }
     }
 
 }

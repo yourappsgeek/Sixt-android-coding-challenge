@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -21,7 +22,6 @@ import com.sixt.codingtask.databinding.FragmentMapBinding
 import com.sixt.codingtask.viewmodel.CarViewModel
 import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.layout_error.*
-import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
 /**
@@ -32,7 +32,7 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
  */
 class MapFragment : Fragment(), OnMapReadyCallback {
 
-    private val viewModel: CarViewModel by sharedViewModel()
+    private val viewModel: CarViewModel by activityViewModels()
     private val options = MarkerOptions()
     private lateinit var mMap: GoogleMap
 
@@ -64,13 +64,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         with(viewModel)
         {
-            cars.observe(viewLifecycleOwner, renderMuseums)
+            cars.observe(viewLifecycleOwner, renderCarsObserver)
             onError.observe(viewLifecycleOwner, onMessageErrorObserver)
         }
     }
 
     //observers
-    private val renderMuseums = Observer<List<Car>> {
+    private val renderCarsObserver = Observer<List<Car>> {
 
         updateMap(it)
     }
@@ -81,16 +81,21 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             val builder = LatLngBounds.Builder()
 
             for (car in cars) {
+
                 val point = LatLng(car.latitude, car.longitude)
-                options.position(point)
-                options.title(car.name)
-                options.snippet(
-                    getString(
-                        R.string.car_item_make_concatenation,
-                        car.make,
-                        car.series
+
+                with(options)
+                {
+                    position(point)
+                    title(car.name)
+                    snippet(getString(
+                            R.string.car_item_make_concatenation,
+                            car.make,
+                            car.series
+                        )
                     )
-                )
+                }
+
                 mMap.addMarker(options)
                 builder.include(point)
             }

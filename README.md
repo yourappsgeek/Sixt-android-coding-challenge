@@ -37,9 +37,7 @@ why I choose these?
 
 11. Used Mokito and Koin for unit testing. Wrote unit tests to check error, empty and list of data cases (In [Koin-test](https://github.com/yourappsgeek/Sixt-android-coding-challenge/blob/master/app/src/test/java/com/sixt/codingtask/CarViewModelTest.kt) branch).
 
-12. Used Coroutines-test for unit testing.Wrote unit tests to check error, empty and list of data cases (In [Coroutines-test](https://github.com/yourappsgeek/Sixt-android-coding-challenge/blob/Coroutines-test/app/src/test/java/com/sixt/codingtask/CarViewModelTestUsingCoroutines.kt) branch).
-
-13. Retrofit is dead-simple to use. It essentially lets you treat API calls as simple method calls, 
+12. Retrofit is dead-simple to use. It essentially lets you treat API calls as simple method calls, 
     so you only define which URLs to hit and the types of the request/response parameters as models.
     The entire network call + JSON/XML parsing is completely handled by it (with help from Gson for JSON parsing),
     along with support for arbitrary formats with pluggable serialization / deserialization.

@@ -19,7 +19,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
  */
 class CarActivity : AppCompatActivity() {
 
-    private val viewModel: CarViewModel by viewModel()
+    private val model by viewModel<CarViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +31,8 @@ class CarActivity : AppCompatActivity() {
             this,
             R.layout.activity_car
         ) as ActivityCarBinding
+
+        model.loadCars()
 
         // Finding the Navigation Controller
         val navController = findNavController(R.id.navHost)
