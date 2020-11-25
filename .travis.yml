@@ -2,12 +2,12 @@ language: android
 dist: trusty
 android:
   components:
-    - build-tools-28
-    - android-28
+    - build-tools-29
+    - android-29
     - add-on
     - extra
   before_install:
-  - yes | sdkmanager "platforms;android-28"
+  - yes | sdkmanager "platforms;android-29"
   licenses:
     - 'android-sdk-preview-license-52d11cd2'
     - 'android-sdk-license-.+'
