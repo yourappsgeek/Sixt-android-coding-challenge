@@ -1,9 +1,15 @@
 language: android
+dist: trusty
 android:
   components:
-    - android-29
     - build-tools-29.0.0
-
+    - android-29
+    - add-on
+    - extra
+  licenses:
+    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
 env:
   global:
    # install timeout in minutes (2 minutes by default)
