@@ -7,7 +7,7 @@ android:
     - add-on
     - extra
   before_install:
-  - yes | sdkmanager "platforms;android-29"
+  - echo yes | sdkmanager "build-tools;29"
   licenses:
     - 'android-sdk-preview-license-52d11cd2'
     - 'android-sdk-license-.+'
