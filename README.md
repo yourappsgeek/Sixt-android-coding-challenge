@@ -1,3 +1,5 @@
+[![Build Status](https://app.bitrise.io/app/49324e41650e1ce9/status.svg?token=HI0HMS28EKG8t65W_YSWZw)](https://app.bitrise.io/app/49324e41650e1ce9)
+
 ## Release Notes
 
 Libraries/Components I used:
